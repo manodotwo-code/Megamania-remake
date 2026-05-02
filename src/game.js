@@ -38,6 +38,7 @@ export class Game {
   }
 
   setupInput() {
+    // Keyboard Input
     window.addEventListener('keydown', (e) => {
       if (e.code === 'ArrowLeft') this.input.left = true;
       if (e.code === 'ArrowRight') this.input.right = true;
@@ -45,11 +46,7 @@ export class Game {
         this.input.space = true;
       }
       if (e.code === 'KeyN') {
-        if (this.state === 'start') {
-          this.startPlaying();
-        } else if (this.state === 'gameover') {
-          this.resetGame();
-        }
+        this.handleActionInput();
       }
     });
 
@@ -58,6 +55,47 @@ export class Game {
       if (e.code === 'ArrowRight') this.input.right = false;
       if (e.code === 'Space') this.input.space = false;
     });
+
+    // Touch Input
+    const btnLeft = document.getElementById('btn-left');
+    const btnRight = document.getElementById('btn-right');
+    const btnAction = document.getElementById('btn-action');
+
+    btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); this.input.left = true; });
+    btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); this.input.left = false; });
+    
+    btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); this.input.right = true; });
+    btnRight.addEventListener('touchend', (e) => { e.preventDefault(); this.input.right = false; });
+    
+    btnAction.addEventListener('touchstart', (e) => { 
+      e.preventDefault(); 
+      this.input.space = true; // Tiro
+      this.handleActionInput(); // Iniciar/Reiniciar
+    });
+    btnAction.addEventListener('touchend', (e) => { e.preventDefault(); this.input.space = false; });
+
+    // Mouse support for buttons (optional but helpful for testing)
+    btnLeft.addEventListener('mousedown', () => { this.input.left = true; });
+    btnLeft.addEventListener('mouseup', () => { this.input.left = false; });
+    btnLeft.addEventListener('mouseleave', () => { this.input.left = false; });
+
+    btnRight.addEventListener('mousedown', () => { this.input.right = true; });
+    btnRight.addEventListener('mouseup', () => { this.input.right = false; });
+    btnRight.addEventListener('mouseleave', () => { this.input.right = false; });
+
+    btnAction.addEventListener('mousedown', () => { 
+      this.input.space = true; 
+      this.handleActionInput(); 
+    });
+    btnAction.addEventListener('mouseup', () => { this.input.space = false; });
+  }
+
+  handleActionInput() {
+    if (this.state === 'start') {
+      this.startPlaying();
+    } else if (this.state === 'gameover') {
+      this.resetGame();
+    }
   }
 
   startPlaying() {
