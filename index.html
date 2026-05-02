@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Megamania Remake</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="ui-layer">
+        <div id="score">Score: 0</div>
+        <div id="lives">Lives: 3</div>
+        <div id="wave">Wave: 1</div>
+      </div>
+      <canvas id="gameCanvas" width="600" height="600"></canvas>
+      <div id="energy-container">
+        <div id="energy-bar"></div>
+      </div>
+      <div id="start-screen">
+        <h1>MEGAMANIA</h1>
+        <p>Pressione N para Novo Jogo</p>
+        <p>Setas (Esq/Dir) movem, Espaço atira</p>
+      </div>
+      <div id="game-over-screen" style="display: none;">
+        <h1>GAME OVER</h1>
+        <p>Pressione N para reiniciar</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
